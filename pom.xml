@@ -16,11 +16,14 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <java.version>1.8</java.version>
 
+        <version.apache-kafka>0.11.0.0</version.apache-kafka>
         <version.assertj>3.8.0</version.assertj>
+        <version.javax-json>1.1</version.javax-json>
+        <version.jetbrains-annotations>15.0</version.jetbrains-annotations>
+        <version.jsonb>1.0</version.jsonb>
         <version.junit>[4,5)</version.junit>
         <version.log4j>1.2.17</version.log4j>
         <version.logback>1.2.3</version.logback>
-        <version.lombok>1.16.18</version.lombok>
         <version.mockito>2.8.9</version.mockito>
         <version.slf4j>1.7.21</version.slf4j>
     </properties>
@@ -29,5 +32,50 @@
         <module>common</module>
     </modules>
 
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${version.apache-kafka}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${version.slf4j}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jul-to-slf4j</artifactId>
+                <version>${version.slf4j}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${version.logback}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jetbrains</groupId>
+                <artifactId>annotations</artifactId>
+                <version>${version.jetbrains-annotations}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${version.junit}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${version.assertj}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
 
