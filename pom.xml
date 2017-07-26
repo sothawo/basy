@@ -30,37 +30,42 @@
 
     <modules>
         <module>common</module>
+        <module>idproducer</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
-
             <dependency>
                 <groupId>org.apache.kafka</groupId>
                 <artifactId>kafka-clients</artifactId>
                 <version>${version.apache-kafka}</version>
+                <scope>compile</scope>
             </dependency>
 
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>${version.slf4j}</version>
+                <scope>compile</scope>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>jul-to-slf4j</artifactId>
                 <version>${version.slf4j}</version>
+                <scope>compile</scope>
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>${version.logback}</version>
+                <scope>compile</scope>
             </dependency>
 
             <dependency>
                 <groupId>org.jetbrains</groupId>
                 <artifactId>annotations</artifactId>
                 <version>${version.jetbrains-annotations}</version>
+                <scope>compile</scope>
             </dependency>
 
             <dependency>
