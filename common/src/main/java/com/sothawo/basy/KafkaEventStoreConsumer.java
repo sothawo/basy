@@ -7,6 +7,7 @@ import com.sothawo.basy.events.Event;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.errors.WakeupException;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,21 +22,22 @@ import java.util.stream.StreamSupport;
  */
 public class KafkaEventStoreConsumer implements EventStoreConsumer {
 
-    private static final String TOPIC = "basy-account-events";
     private static final Logger logger = LoggerFactory.getLogger(KafkaEventStoreConsumer.class);
 
     private final KafkaConsumer<String, Event> kafkaConsumer;
     private final AtomicBoolean running = new AtomicBoolean(false);
+    private final String topic;
 
-    public KafkaEventStoreConsumer(Properties props) {
+    public KafkaEventStoreConsumer(@NotNull Properties props, @NotNull String topic) {
         this.kafkaConsumer = new KafkaConsumer<>(props);
+        this.topic = topic;
     }
 
     @Override
     public void consume(Consumer<Event> consumer) {
         running.set(true);
         final Thread thread = new Thread(() -> {
-            kafkaConsumer.subscribe(Collections.singletonList(TOPIC));
+            kafkaConsumer.subscribe(Collections.singletonList(topic));
             try {
                 while (running.get()) {
                     StreamSupport.stream(

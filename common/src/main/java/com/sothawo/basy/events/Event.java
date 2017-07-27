@@ -16,10 +16,6 @@ public abstract class Event {
         return creationTime;
     }
 
-    public void setCreationTime(Instant creationTime) {
-        this.creationTime = creationTime;
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(creationTime);

@@ -25,7 +25,7 @@ public class IdProducer {
     private void run() {
         final Properties props = new KafkaProperties();
 
-        try (EventStoreProducer eventStoreProducer = new KafkaEventStoreProducer(props)) {
+        try (EventStoreProducer eventStoreProducer = new KafkaEventStoreProducer(props, KafkaTopics.ACCOUNT_EVENTS)) {
             //noinspection InfiniteLoopStatement
             while (true) {
                 final IdCreated event = new IdCreated(UUID.randomUUID().toString());

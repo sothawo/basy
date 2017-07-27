@@ -23,7 +23,7 @@ public class EventLogger {
         final Properties props = new KafkaProperties();
         props.put("group.id", UUID.randomUUID().toString());
 
-        try (EventStoreConsumer eventStoreConsumer = new KafkaEventStoreConsumer(props)) {
+        try (EventStoreConsumer eventStoreConsumer = new KafkaEventStoreConsumer(props, KafkaTopics.ACCOUNT_EVENTS)) {
 
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
                 try {

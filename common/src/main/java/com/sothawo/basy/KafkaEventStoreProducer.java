@@ -18,17 +18,19 @@ import java.util.Properties;
 public class KafkaEventStoreProducer implements EventStoreProducer {
 
     private static final Logger logger = LoggerFactory.getLogger(KafkaEventStoreProducer.class);
-    private static final String TOPIC = "basy-account-events";
 
     private final KafkaProducer<String, Event> kafkaProducer;
+    private final String topic;
 
-    public KafkaEventStoreProducer(@NotNull Properties props) {
+    public KafkaEventStoreProducer(@NotNull Properties props, @NotNull String topic) {
         this.kafkaProducer = new KafkaProducer<>(props);
+        this.topic = topic;
     }
 
     @Override
     public void produce(@NotNull Event evt) {
-        ProducerRecord<String, Event> record = new ProducerRecord<>(TOPIC, evt);
+        ProducerRecord<String, Event> record = new ProducerRecord<>(topic, evt);
+        logger.debug("send event to kafka({}): {}", topic, evt);
         kafkaProducer.send(record);
     }
 
