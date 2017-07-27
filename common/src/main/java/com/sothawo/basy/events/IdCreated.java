@@ -44,4 +44,10 @@ public class IdCreated extends Event {
                 "id='" + id + '\'' +
                 "} " + super.toString();
     }
+
+    @Override
+    @NotNull
+    public String getDescription() {
+        return id;
+    }
 }

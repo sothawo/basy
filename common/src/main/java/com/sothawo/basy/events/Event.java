@@ -3,6 +3,9 @@
  */
 package com.sothawo.basy.events;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.jetbrains.annotations.NotNull;
+
 import java.time.Instant;
 import java.util.Objects;
 
@@ -10,7 +13,7 @@ import java.util.Objects;
  * @author P.J. Meisch (pj.meisch@sothawo.com)
  */
 public abstract class Event {
-    protected Instant creationTime = Instant.now();
+    protected final Instant creationTime = Instant.now();
 
     public Instant getCreationTime() {
         return creationTime;
@@ -35,4 +38,8 @@ public abstract class Event {
                 "creationTime=" + creationTime +
                 '}';
     }
+
+    @NotNull
+    @JsonIgnore
+    abstract public String getDescription();
 }

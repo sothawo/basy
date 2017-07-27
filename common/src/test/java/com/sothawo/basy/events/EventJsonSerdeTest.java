@@ -3,6 +3,7 @@
  */
 package com.sothawo.basy.events;
 
+import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 
 import java.util.Objects;
@@ -58,6 +59,11 @@ public class EventJsonSerdeTest {
             return "TestEvent{" +
                     "message='" + message + '\'' +
                     "} " + super.toString();
+        }
+
+        @Override
+        public @NotNull String getDescription() {
+            return message;
         }
 
 
