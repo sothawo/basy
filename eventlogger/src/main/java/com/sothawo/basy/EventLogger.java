@@ -20,13 +20,19 @@ public class EventLogger {
     }
 
     private void run() {
-        final Properties props = new Properties();
-        props.put("bootstrap.servers", "localhost:9092");
-        props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        props.put("value.deserializer", "com.sothawo.basy.events.EventSerde");
+        final Properties props = new KafkaProperties();
         props.put("group.id", UUID.randomUUID().toString());
 
         try (EventStoreConsumer eventStoreConsumer = new KafkaEventStoreConsumer(props)) {
+
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                try {
+                    eventStoreConsumer.close();
+                } catch (Exception e) {
+                    logger.error("error on shutdown", e);
+                }
+            }));
+
             eventStoreConsumer.consume(event -> logger.info("got event: {}", event));
         } catch (Exception e) {
             logger.error("exiting program", e);

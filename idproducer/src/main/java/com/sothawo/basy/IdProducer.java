@@ -23,10 +23,7 @@ public class IdProducer {
     }
 
     private void run() {
-        final Properties props = new Properties();
-        props.put("bootstrap.servers", "localhost:9092");
-        props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        props.put("value.serializer", "com.sothawo.basy.events.EventSerde");
+        final Properties props = new KafkaProperties();
 
         try (EventStoreProducer eventStoreProducer = new KafkaEventStoreProducer(props)) {
             //noinspection InfiniteLoopStatement
