@@ -55,9 +55,9 @@ public class EventLogger extends Application {
         primaryStage.show();
 
         new Thread(() -> eventStoreConsumer
-                .consume(event ->
+                .consume(events ->
                         Platform.runLater(() ->
-                                tableEvents.add(0, new TableEvent(event)))))
+                                events.forEach(event -> tableEvents.add(0, new TableEvent(event))))))
                 .start();
     }
 

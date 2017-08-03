@@ -4,7 +4,9 @@
 package com.sothawo.basy;
 
 import com.sothawo.basy.events.Event;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -15,7 +17,7 @@ public interface EventStoreConsumer extends AutoCloseable {
      * starts listen to events, lets them process by the consumer and blocks until #close() is called.
      *
      * @param consumer
-     *         the consumer processing the event
+     *         the consumer processing the events
      */
-    void consume(Consumer<Event> consumer);
+    void consume(@NotNull Consumer<List<Event>> consumer);
 }

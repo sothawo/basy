@@ -12,9 +12,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 /**
@@ -34,16 +36,16 @@ public class KafkaEventStoreConsumer implements EventStoreConsumer {
     }
 
     @Override
-    public void consume(Consumer<Event> consumer) {
+    public void consume(@NotNull Consumer<List<Event>> consumer) {
         running.set(true);
         final Thread thread = new Thread(() -> {
             kafkaConsumer.subscribe(Collections.singletonList(topic));
             try {
                 while (running.get()) {
-                    StreamSupport.stream(
+                    consumer.accept(StreamSupport.stream(
                             kafkaConsumer.poll(Long.MAX_VALUE).spliterator(), false)
                             .map(ConsumerRecord::value)
-                            .forEach(consumer);
+                            .collect(Collectors.toList()));
                 }
             } catch (WakeupException e) {
                 if (running.get()) {
