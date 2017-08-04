@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -45,6 +46,8 @@ public class KafkaEventStoreConsumer implements EventStoreConsumer {
                     consumer.accept(StreamSupport.stream(
                             kafkaConsumer.poll(Long.MAX_VALUE).spliterator(), false)
                             .map(ConsumerRecord::value)
+                            // need to sort because the events come from different partitions
+                            .sorted(Comparator.comparing(Event::getCreationTime))
                             .collect(Collectors.toList()));
                 }
             } catch (WakeupException e) {
