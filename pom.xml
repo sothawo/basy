@@ -18,6 +18,7 @@
 
         <version.apache-kafka>0.11.0.0</version.apache-kafka>
         <version.assertj>3.8.0</version.assertj>
+        <version.jackson>[2.9.10.1,)</version.jackson>
         <version.javax-json>1.1</version.javax-json>
         <version.jetbrains-annotations>15.0</version.jetbrains-annotations>
         <version.jsonb>1.0</version.jsonb>
@@ -68,7 +69,11 @@
                 <version>${version.jetbrains-annotations}</version>
                 <scope>compile</scope>
             </dependency>
-
+            <dependency>
+              <groupId>com.fasterxml.jackson.core</groupId>
+              <artifactId>jackson-databind</artifactId>
+              <version>${version.jackson}</version>
+            </dependency>
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
